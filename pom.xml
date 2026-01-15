@@ -36,7 +36,7 @@
  </dependencyManagement>
 
  <dependencies>
-  <!-- Gateway -->
+  <!-- Gateway [Routing ,Filters (GlobalFilter, GatewayFilter) ,Reactive stack (WebFlux)]-->
   <dependency>
    <groupId>org.springframework.cloud</groupId>
    <artifactId>spring-cloud-starter-gateway</artifactId>
@@ -46,6 +46,12 @@
   <dependency>
    <groupId>org.springframework.cloud</groupId>
    <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+  </dependency>
+
+  <!--  Circuit Breaker ,Retry, Timeout-->
+  <dependency>
+   <groupId>org.springframework.cloud</groupId>
+   <artifactId>spring-cloud-starter-circuitbreaker-reactor-resilience4j</artifactId>
   </dependency>
 
   <!-- Security (JWT later) -->

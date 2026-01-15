@@ -48,3 +48,6 @@ Client (stores token)
         |
         v
    Database (per service)
+
+->Added Circuit Breaker in Order Service- FallbackFactory if payment service down
+->Added Circuit Breaker in Gateway- Fallback if Order service down
