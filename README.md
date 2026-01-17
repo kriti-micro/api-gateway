@@ -51,3 +51,6 @@ Client (stores token)
 
 ->Added Circuit Breaker in Order Service- FallbackFactory if payment service down
 ->Added Circuit Breaker in Gateway- Fallback if Order service down
+
+Spring Boot provides logging out of the box using SLF4J and Logback, so no additional dependency is required for logging in API Gateway.
+
