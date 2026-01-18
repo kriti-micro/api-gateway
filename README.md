@@ -54,3 +54,9 @@ Client (stores token)
 
 Spring Boot provides logging out of the box using SLF4J and Logback, so no additional dependency is required for logging in API Gateway.
 
+Correct order:
+
+Correlation ID
+Logging
+Auth
+Routing
