@@ -48,6 +48,12 @@
    <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
   </dependency>
 
+<!--rate limit-->
+  <dependency>
+   <groupId>org.springframework.boot</groupId>
+   <artifactId>spring-boot-starter-data-redis-reactive</artifactId>
+  </dependency>
+
   <!--  Circuit Breaker ,Retry, Timeout-->
   <dependency>
    <groupId>org.springframework.cloud</groupId>

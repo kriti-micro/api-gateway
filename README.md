@@ -48,15 +48,39 @@ Client (stores token)
         |
         v
    Database (per service)
-
-->Added Circuit Breaker in Order Service- FallbackFactory if payment service down
-->Added Circuit Breaker in Gateway- Fallback if Order service down
+```
+- **Added Circuit Breaker in Order Service- FallbackFactory if payment service down
+- **Added Circuit Breaker in Gateway- Fallback if Order service down
 
 Spring Boot provides logging out of the box using SLF4J and Logback, so no additional dependency is required for logging in API Gateway.
-
-Correct order:
-
+---
 Correlation ID
 Logging
 Auth
 Routing
+---
+Exception handling should be layered.
+Gateway handles infrastructure failures and routing errors.
+Each microservice uses @ControllerAdvice for business and validation exceptions.
+Correlation ID ensures traceability across logs.
+Circuit breakers provide graceful degradation.
+---------
+Correct order:
+Client
+↓
+API Gateway
+↓
+[ Rate Limiting ]
+↓
+[ Authentication / JWT ]
+↓
+[ Circuit Breaker ]
+↓
+Service Discovery
+↓
+Microservice
+
+Rate limiting should be applied before circuit breaking so that excessive traffic is blocked early and does not affect circuit breaker metrics or backend health.
+test:
+![RateLimiterTest](docs/redis_test.png)
+---
