@@ -1,5 +1,6 @@
 package com.example.util;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,16 +18,14 @@ public class JwtUtil {
         return Keys.hmacShaKeyFor(secret.getBytes());
     }
 
-    public boolean validateToken(String token) {
-        try {
-            Jwts.parserBuilder()
+    public Claims validateToken(String token) {
+
+           return Jwts.parserBuilder()
                     .setSigningKey(getSigningKey())
                     .build()
-                    .parseClaimsJws(token);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
+                    .parseClaimsJws(token)
+                   .getBody();
+
     }
 
     public String extractUsername(String token) {

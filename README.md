@@ -11,8 +11,6 @@ All secured requests use **JWT Bearer Tokens**.
 
 ---
 
-## 🧩 Microservices Architecture Flow (with Auth & JWT)
-
 ```text
 Client (Web / Mobile)
         |
@@ -66,6 +64,7 @@ Correlation ID ensures traceability across logs.
 Circuit breakers provide graceful degradation.
 ---------
 Correct order:
+```text
 Client
 ↓
 API Gateway
@@ -79,8 +78,44 @@ API Gateway
 Service Discovery
 ↓
 Microservice
-
+```
 Rate limiting should be applied before circuit breaking so that excessive traffic is blocked early and does not affect circuit breaker metrics or backend health.
 test:
 ![RateLimiterTest](docs/redis_test.png)
+---
+## 🧩 Auth Service
+```text
+Client
+  |
+  | POST /auth/login
+  v
+API Gateway
+  |  (permitAll)
+  v
+Auth Service
+  |
+  | returns JWT
+  v
+Client
+  |
+  | GET /order/1 + Authorization: Bearer xxx
+  v
+API Gateway
+  |  JWT Filter validates token
+  v
+Order Service
+
+```
+
+How to TEST (Correct Order)
+
+1️⃣ Start Eureka
+2️⃣ Start Auth Service
+3️⃣ Start Gateway
+4️⃣ Start Order / Payment
+
+Gateway is reactive → needs WebFlux security
+JWT parsing happens in Gateway, not downstream
+Stops default login popup
+Allows /auth/login
 ---
